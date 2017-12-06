@@ -53,12 +53,7 @@ object Anagrams {
    *    List(('a', 1), ('e', 1), ('t', 1)) -> Seq("ate", "eat", "tea")
    *
    */
-  lazy val dictionaryByOccurrences: Map[Occurrences, List[Word]] = dictionary.map(wordOccurrences(_)).map(a => (a, dictionary.filter(b => wordOccurrences(b) == a))).toMap
-//  {
-//    val x: List[Occurrences] = dictionary.map(wordOccurrences(_))
-//    val x1 = x.map(a => (a, dictionary.filter(b => wordOccurrences(b) == a)))
-//    val x2 = x1.toMap
-//  }
+  lazy val dictionaryByOccurrences: Map[Occurrences, List[Word]] = dictionary.groupBy(wordOccurrences(_))
 
   /** Returns all the anagrams of a given word. */
   def wordAnagrams(word: Word): List[Word] = dictionaryByOccurrences.get(wordOccurrences(word)).fold(List[Word]())(a => a)
